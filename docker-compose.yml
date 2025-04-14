@@ -1,0 +1,48 @@
+version: '3'
+
+services:
+  evilginx2:
+    build:
+      context: .
+      dockerfile: Dockerfile.evilginx2
+    container_name: evilginx2
+    restart: unless-stopped
+    ports:
+      - "53:53/udp"  # DNS
+      - "80:80"      # HTTP
+      - "443:443"    # HTTPS
+    volumes:
+      - ./evilginx2-data/database:/app/database
+      - ./evilginx2-data/phishlets:/app/phishlets
+      - ./evilginx2-data/redirectors:/app/redirectors
+    networks:
+      - phishing-network
+    environment:
+      - TZ=UTC
+    cap_add:
+      - NET_ADMIN  # Required for DNS functionality
+
+  gophish:
+    build:
+      context: .
+      dockerfile: Dockerfile.gophish
+    container_name: gophish
+    restart: unless-stopped
+    ports:
+      - "3333:3333"  # Admin interface
+      - "8080:8080"  # Phishing server
+    volumes:
+      - ./gophish-data:/app/data
+      - ./integration-config.json:/app/config.json
+    networks:
+      - phishing-network
+    environment:
+      - TZ=UTC
+      - EVILGINX_ENABLED=true
+      - EVILGINX_URL=http://evilginx2:80
+    depends_on:
+      - evilginx2
+
+networks:
+  phishing-network:
+    driver: bridge
