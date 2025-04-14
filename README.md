@@ -36,7 +36,7 @@ This script will:
 ### 3. Build and Start the Containers
 
 ```bash
-docker-compose up -d
+docker compose up -d
 ```
 
 ### 4. Access the Services
