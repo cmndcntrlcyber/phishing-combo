@@ -19,4 +19,6 @@ fi
 
 echo "Setup complete! You can now run 'docker-compose up -d' to start the services."
 echo "Access Gophish admin interface at: http://localhost:3333 (default credentials: admin:gophish)"
+echo "Access Evilginx2 HTTP interface at: http://localhost:9081"
+echo "Access Evilginx2 HTTPS interface at: https://localhost:8444"
 echo "Access Evilginx2 by running: docker exec -it evilginx2 /bin/sh"

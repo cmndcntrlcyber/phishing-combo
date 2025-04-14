@@ -45,6 +45,16 @@ else
     echo "Check if the port is correctly mapped and the service is running."
 fi
 
+# Check if Evilginx2 HTTP interface is accessible
+echo "Testing Evilginx2 HTTP interface..."
+curl -s -o /dev/null -w "%{http_code}" http://localhost:9081 > /dev/null 2>&1
+if [ $? -eq 0 ]; then
+    echo "Evilginx2 HTTP interface is accessible at http://localhost:9081"
+else
+    echo "Cannot access Evilginx2 HTTP interface at http://localhost:9081"
+    echo "Check if the port is correctly mapped and the service is running."
+fi
+
 echo "Test complete."
 echo "For more detailed testing, access the Gophish admin interface at http://localhost:3333"
 echo "Default credentials: admin:gophish"

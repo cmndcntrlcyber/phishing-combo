@@ -116,11 +116,15 @@ This setup is intended for legitimate security testing only. Always ensure you h
 
 ### Common Issues
 
-1. **Port Conflicts**: If you have services already using ports 80, 443, 53, 3333, or 8080, modify the port mappings in docker-compose.yml.
+1. **Port Conflicts**: If you have services already using ports 53, 9081, 8444, 3333, or 8081, modify the port mappings in docker-compose.yml.
 
 2. **DNS Issues**: Evilginx2 requires proper DNS configuration. Ensure your domain's DNS records point to your server's IP address.
 
 3. **SSL Certificate Errors**: For production use, replace the self-signed certificates with valid ones.
+
+4. **Go Version Compatibility**: If you encounter build errors related to Go version compatibility, try modifying the Dockerfiles to use an older version of Go (e.g., 1.16 or 1.17).
+
+5. **Container Communication**: If the containers can't communicate with each other, check the Docker network configuration and ensure that the container names are correctly referenced in the configuration files.
 
 ## Disclaimer
 
